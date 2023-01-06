@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'login_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -7,16 +10,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: const Center(
-          child: Text('Hello World'),
-        ),
-      ),
+    return ScreenUtilInit(
+      designSize: const Size(414, 896),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (BuildContext context, Widget? child) {
+        return const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Material App',
+          home: LoginScreen(),
+        );
+      },
     );
   }
 }
