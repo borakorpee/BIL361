@@ -39,7 +39,87 @@ class ReservationScree extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(children: const [Header(), Text("Rez")]),
+      body: Container(
+        color: const Color(0xffecf0f5),
+        child: Column(
+          children: [
+            const Header(),
+            Container(
+              width: 384.w,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10).r,
+                child: Text(
+                  "Seçilebilecek Yemekler",
+                  style: TextStyle(
+                      fontSize: 25.sp, color: const Color(0xff444444)),
+                ),
+              ),
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: DataTable(
+                dataRowColor:
+                    MaterialStateColor.resolveWith((states) => Colors.white),
+                headingRowColor:
+                    MaterialStateColor.resolveWith((states) => Colors.white),
+                showBottomBorder: true,
+                columnSpacing: 15.r,
+                headingTextStyle: TextStyle(
+                  fontSize: 14.sp,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+                showCheckboxColumn: true,
+                columns: const [
+                  DataColumn(
+                    label: Text(
+                      "Yemek Tarihi",
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      "Yemekhane",
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text("Menü"),
+                  ),
+                  DataColumn(
+                    label: Text("Öğün"),
+                  ),
+                  DataColumn(
+                    label: Text("Fiyat"),
+                  ),
+                ],
+                rows: [
+                  DataRow(
+                    selected: false,
+                    onSelectChanged: (b) {},
+                    cells: const [
+                      DataCell(
+                        Text("asd"),
+                      ),
+                      DataCell(
+                        Text("asd"),
+                      ),
+                      DataCell(
+                        Text("asd"),
+                      ),
+                      DataCell(
+                        Text("asd"),
+                      ),
+                      DataCell(
+                        Text("asd"),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

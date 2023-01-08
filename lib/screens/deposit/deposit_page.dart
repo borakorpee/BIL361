@@ -53,76 +53,79 @@ class _DepositScreenState extends State<DepositScreen> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          const Header(),
-          SizedBox(height: 20.h),
-          Text(
-            "Kartınıza Bakiye Yükleyin",
-            style: TextStyle(color: Colors.red, fontSize: 25.sp),
-          ),
-          SizedBox(height: 20.h),
-          SizedBox(
-            width: 250.w,
-            height: 400.h,
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                mainAxisSpacing: 10.r,
-                crossAxisSpacing: 10.r,
-                crossAxisCount: 3,
-              ),
-              itemCount: fiyat.length,
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onTap: () => handleClick(fiyat[index]),
-                  child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        color: const Color(0xff4CAF50),
-                      ),
-                      child: Center(
-                          child: Text(
-                        "${fiyat[index]} TL",
-                        style: const TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.bold),
-                      ))),
-                );
-              },
+      body: Container(
+        color: const Color(0xffecf0f5),
+        child: Column(
+          children: [
+            const Header(),
+            SizedBox(height: 20.h),
+            Text(
+              "Kartınıza Bakiye Yükleyin",
+              style: TextStyle(color: Colors.red, fontSize: 25.sp),
             ),
-          ),
-          SizedBox(
-            width: 250.w,
-            height: 50.h,
-            child: TextFormField(
-              controller: depositController,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.only(top: 0, left: 10),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(0),
-                  borderSide: const BorderSide(
-                    color: Colors.grey,
-                  ),
+            SizedBox(height: 20.h),
+            SizedBox(
+              width: 250.w,
+              height: 400.h,
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  mainAxisSpacing: 10.r,
+                  crossAxisSpacing: 10.r,
+                  crossAxisCount: 3,
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(0),
-                  borderSide: const BorderSide(
-                    color: Colors.grey,
-                  ),
-                ),
-                border: InputBorder.none,
+                itemCount: fiyat.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () => handleClick(fiyat[index]),
+                    child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          color: const Color(0xff4CAF50),
+                        ),
+                        child: Center(
+                            child: Text(
+                          "${fiyat[index]} TL",
+                          style: const TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.bold),
+                        ))),
+                  );
+                },
               ),
             ),
-          ),
-          SizedBox(height: 20.h),
-          Container(
-            width: 80.w,
-            height: 47.h,
-            decoration: BoxDecoration(
-                color: const Color(0xff568def),
-                border: Border.all(color: Colors.grey)),
-            child: const Center(child: Text("İleri")),
-          ),
-        ],
+            SizedBox(
+              width: 250.w,
+              height: 50.h,
+              child: TextFormField(
+                controller: depositController,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.only(top: 0, left: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(0),
+                    borderSide: const BorderSide(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(0),
+                    borderSide: const BorderSide(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            SizedBox(height: 20.h),
+            Container(
+              width: 80.w,
+              height: 47.h,
+              decoration: BoxDecoration(
+                  color: const Color(0xff568def),
+                  border: Border.all(color: Colors.grey)),
+              child: const Center(child: Text("İleri")),
+            ),
+          ],
+        ),
       ),
     );
   }
