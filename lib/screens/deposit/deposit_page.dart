@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../home/home_page.dart';
+import '../../components/appHeader.dart';
+import '../../components/customDrawer.dart';
 
 class DepositScreen extends StatelessWidget {
   static const routeName = "/deposit";
@@ -38,6 +39,10 @@ class DepositScreen extends StatelessWidget {
           ],
         ),
       ),
+      body: Column(children: const [
+        Header(),
+        Text("deposit"),
+      ]),
     );
   }
 }

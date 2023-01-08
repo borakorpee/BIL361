@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../components/appHeader.dart';
 import '../../components/customDrawer.dart';
 
-class HomeScreen extends StatelessWidget {
-  static const routeName = "/home";
-  const HomeScreen({super.key});
+class ReservationScree extends StatelessWidget {
+  static const routeName = "/reservation";
+  const ReservationScree({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +39,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(children: const [
-        Header(),
-        Text("home"),
-      ]),
+      body: Column(children: const [Header(), Text("Rez")]),
     );
   }
 }
