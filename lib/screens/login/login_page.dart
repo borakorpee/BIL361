@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:yga/screens/home/home_page.dart';
 
 class LoginScreen extends StatelessWidget {
+  static const routeName = "/login";
   const LoginScreen({super.key});
 
   @override
@@ -17,7 +19,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               const Content(),
               SizedBox(height: 30.h),
-              InputFields(),
+              const InputFields(),
             ],
           ),
         ),
@@ -143,6 +145,7 @@ class _InputFieldsState extends State<InputFields> {
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
                   onTap: (() {
+                    Navigator.of(context).popAndPushNamed(HomeScreen.routeName);
                     print(username_controlller.text);
                     print(password_controller.text);
                   }),

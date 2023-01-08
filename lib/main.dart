@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:yga/screens/deposit/deposit_page.dart';
+import 'package:yga/screens/home/home_page.dart';
 
-import 'login_page.dart';
+import 'screens/login/login_page.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle.dark,
+  );
+
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -15,10 +24,15 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (BuildContext context, Widget? child) {
-        return const MaterialApp(
+        return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Material App',
-          home: LoginScreen(),
+          home: const LoginScreen(),
+          routes: {
+            DepositScreen.routeName: ((context) => const DepositScreen()),
+            LoginScreen.routeName: ((context) => const LoginScreen()),
+            HomeScreen.routeName: (context) => const HomeScreen(),
+          },
         );
       },
     );
