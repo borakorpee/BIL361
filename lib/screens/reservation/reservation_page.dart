@@ -14,6 +14,7 @@ class ReservationScree extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider =
         Provider.of<MealListProvider>(context, listen: false).meal_list;
+    final cart = Provider.of<MealListProvider>(context);
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
@@ -63,7 +64,7 @@ class ReservationScree extends StatelessWidget {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: DataTable(
-                dataRowHeight: 100,
+                dataRowHeight: 90.h,
                 dataRowColor:
                     MaterialStateColor.resolveWith((states) => Colors.white),
                 headingRowColor:
@@ -100,8 +101,14 @@ class ReservationScree extends StatelessWidget {
                 rows: provider!
                     .map(
                       (meal) => DataRow(
-                          selected: false,
-                          onSelectChanged: (value) {},
+                          selected: cart.cartList!.contains(meal),
+                          onSelectChanged: (value) {
+                            if (value!) {
+                              cart.addToCart(meal);
+                            } else {
+                              cart.removeMeal(meal);
+                            }
+                          },
                           cells: [
                             DataCell(
                               Text(meal.date.toString()),
@@ -110,16 +117,19 @@ class ReservationScree extends StatelessWidget {
                               Text(meal.yemekhane.toString()),
                             ),
                             DataCell(
-                              Container(
-                                width: 50,
-                                height: 100,
+                              SizedBox(
+                                width: 100.w,
+                                height: 100.h,
                                 child: ListView.builder(
                                   itemCount: meal.men!.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    return Text(
-                                      meal.men![index],
-                                      style: TextStyle(fontSize: 12.sp),
+                                    return Padding(
+                                      padding: const EdgeInsets.only(top: 5).r,
+                                      child: Text(
+                                        meal.men![index],
+                                        style: TextStyle(fontSize: 12.sp),
+                                      ),
                                     );
                                   },
                                 ),

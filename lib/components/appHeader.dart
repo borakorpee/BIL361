@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/client_provider.dart';
+import '../providers/meal_list_provider.dart';
 import '../screens/cart/cart_page.dart';
 
 class Header extends StatefulWidget {
@@ -20,7 +21,7 @@ class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ClientProvider>(context, listen: true);
-
+    final cart = Provider.of<MealListProvider>(context);
     return Stack(
       children: [
         Container(
@@ -75,7 +76,7 @@ class _HeaderState extends State<Header> {
                         ),
                         child: Center(
                           child: Text(
-                            "7",
+                            cart.cartList!.length.toString(),
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12.sp,

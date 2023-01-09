@@ -10,6 +10,7 @@ import 'package:yga/providers/client_provider.dart';
 import 'package:yga/providers/meal_list_provider.dart';
 import 'package:yga/screens/home/home_page.dart';
 import 'package:http/http.dart' as http;
+import 'package:yga/screens/login/constant.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = "/login";
@@ -156,7 +157,7 @@ class _InputFieldsState extends State<InputFields> {
                   onTap: (() async {
                     var response = await http.post(
                       Uri.parse(
-                        "http://localhost:3001/api/client/login",
+                        "$root/client/login",
                       ),
                       body: {
                         "no": username_controlller.text,
@@ -169,7 +170,9 @@ class _InputFieldsState extends State<InputFields> {
                           .setClient(data);
 
                       var responsee = await http.get(
-                          Uri.parse("http://localhost:3001/api/yemek/yemeks"),
+                          Uri.parse(
+                            "$root/yemek/yemeks",
+                          ),
                           headers: {
                             "x-access-token": data["token"],
                           });
