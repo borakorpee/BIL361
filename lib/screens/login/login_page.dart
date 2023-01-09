@@ -1,8 +1,14 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously
+
+import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:yga/providers/client_provider.dart';
 import 'package:yga/screens/home/home_page.dart';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatelessWidget {
   static const routeName = "/login";
@@ -146,10 +152,24 @@ class _InputFieldsState extends State<InputFields> {
             Align(
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
-                  onTap: (() {
-                    Navigator.of(context).popAndPushNamed(HomeScreen.routeName);
-                    print(username_controlller.text);
-                    print(password_controller.text);
+                  onTap: (() async {
+                    var response = await http.post(
+                      Uri.parse(
+                        "http://localhost:3001/api/client/login",
+                      ),
+                      body: {
+                        "no": username_controlller.text,
+                        "pass": password_controller.text,
+                      },
+                    );
+                    var data = jsonDecode(response.body);
+                    if (data["status"]) {
+                      Provider.of<ClientProvider>(context, listen: false)
+                          .setClient(data);
+
+                      Navigator.of(context)
+                          .popAndPushNamed(HomeScreen.routeName);
+                    }
                   }),
                   child: Container(
                     width: 90.w,

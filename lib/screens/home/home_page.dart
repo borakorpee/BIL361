@@ -31,9 +31,9 @@ class HomeScreen extends StatelessWidget {
               "BAKIRÇAY",
               style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700),
             ),
-            const Text(
+            Text(
               " SKS",
-              style: TextStyle(fontWeight: FontWeight.w200),
+              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w200),
             )
           ],
         ),

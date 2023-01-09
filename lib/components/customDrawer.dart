@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:yga/providers/client_provider.dart';
 import 'package:yga/screens/cart/cart_page.dart';
 import 'package:yga/screens/reservation/cancelRez_page.dart';
 import 'package:yga/screens/reservation/reservation_page.dart';
@@ -17,6 +19,7 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ClientProvider>(context, listen: false);
     return Drawer(
         elevation: 0,
         backgroundColor: const Color(0xff222d32),
@@ -41,10 +44,10 @@ class CustomDrawer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Row(
-                          children: const [
+                          children: [
                             Text(
-                              "BORA KÖRPE",
-                              style: TextStyle(
+                              "${provider.get_client!.name} ${provider.get_client!.surName}",
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600),

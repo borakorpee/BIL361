@@ -2,6 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/client_provider.dart';
+import '../screens/cart/cart_page.dart';
 
 class Header extends StatefulWidget {
   const Header({
@@ -15,6 +19,8 @@ class Header extends StatefulWidget {
 class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ClientProvider>(context, listen: false);
+
     return Stack(
       children: [
         Container(
@@ -25,15 +31,15 @@ class _HeaderState extends State<Header> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Row(
-                children: const [
-                  Icon(
+                children: [
+                  const Icon(
                     Icons.currency_lira_rounded,
                     color: Colors.white,
                     size: 16,
                   ),
                   Text(
-                    "10,5",
-                    style: TextStyle(color: Colors.white, fontSize: 15),
+                    provider.get_client!.bakiye.toString(),
+                    style: const TextStyle(color: Colors.white, fontSize: 15),
                   ),
                 ],
               ),
@@ -43,11 +49,18 @@ class _HeaderState extends State<Header> {
                 height: 50.h,
                 child: Stack(
                   children: [
-                    const Center(
-                      child: Icon(
-                        Icons.shopping_cart,
-                        color: Colors.white,
-                        size: 20,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            CartScreen.routeName,
+                            (Route<dynamic> route) => false);
+                      },
+                      child: const Center(
+                        child: Icon(
+                          Icons.shopping_cart,
+                          color: Colors.white,
+                          size: 20,
+                        ),
                       ),
                     ),
                     Positioned(
