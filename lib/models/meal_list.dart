@@ -1,11 +1,12 @@
-class MealList {
+class MealListModel {
   bool? status;
   String? message;
   Value? value;
 
-  MealList({required this.status, required this.message, required this.value});
+  MealListModel(
+      {required this.status, required this.message, required this.value});
 
-  MealList.fromJson(Map<String, dynamic> json) {
+  MealListModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     value = json['value'] != null ? new Value.fromJson(json['value']) : null;
@@ -52,8 +53,16 @@ class Yemeks {
   String? yemekhane;
   List<String>? men;
   int? iV;
+  String? ogun;
 
-  Yemeks({this.sId, this.date, this.fiyat, this.yemekhane, this.men, this.iV});
+  Yemeks(
+      {this.sId,
+      this.date,
+      this.fiyat,
+      this.yemekhane,
+      this.men,
+      this.iV,
+      this.ogun});
 
   Yemeks.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -62,6 +71,7 @@ class Yemeks {
     yemekhane = json['yemekhane'];
     men = json['menü'].cast<String>();
     iV = json['__v'];
+    ogun = json['ogun'];
   }
 
   Map<String, dynamic> toJson() {
@@ -72,6 +82,7 @@ class Yemeks {
     data['yemekhane'] = this.yemekhane;
     data['menü'] = this.men;
     data['__v'] = this.iV;
+    data['ogun'] = this.ogun;
     return data;
   }
 }

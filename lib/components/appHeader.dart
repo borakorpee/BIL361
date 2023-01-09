@@ -19,7 +19,7 @@ class Header extends StatefulWidget {
 class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ClientProvider>(context, listen: false);
+    final provider = Provider.of<ClientProvider>(context, listen: true);
 
     return Stack(
       children: [

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/appHeader.dart';
 import '../../components/customDrawer.dart';
+import '../../providers/client_provider.dart';
 
 class DepositScreen extends StatefulWidget {
   static const routeName = "/deposit";
@@ -22,6 +24,8 @@ class _DepositScreenState extends State<DepositScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ClientProvider>(context, listen: false);
+
     TextEditingController depositController =
         TextEditingController(text: deposit.toString());
     return Scaffold(
@@ -116,13 +120,18 @@ class _DepositScreenState extends State<DepositScreen> {
               ),
             ),
             SizedBox(height: 20.h),
-            Container(
-              width: 80.w,
-              height: 47.h,
-              decoration: BoxDecoration(
-                  color: const Color(0xff568def),
-                  border: Border.all(color: Colors.grey)),
-              child: const Center(child: Text("İleri")),
+            GestureDetector(
+              onTap: () {
+                provider.updateBalance(int.tryParse(depositController.text));
+              },
+              child: Container(
+                width: 80.w,
+                height: 47.h,
+                decoration: BoxDecoration(
+                    color: const Color(0xff568def),
+                    border: Border.all(color: Colors.grey)),
+                child: const Center(child: Text("İleri")),
+              ),
             ),
           ],
         ),

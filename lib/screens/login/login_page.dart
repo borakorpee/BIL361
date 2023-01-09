@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:yga/providers/client_provider.dart';
+import 'package:yga/providers/meal_list_provider.dart';
 import 'package:yga/screens/home/home_page.dart';
 import 'package:http/http.dart' as http;
 
@@ -167,6 +168,14 @@ class _InputFieldsState extends State<InputFields> {
                       Provider.of<ClientProvider>(context, listen: false)
                           .setClient(data);
 
+                      var responsee = await http.get(
+                          Uri.parse("http://localhost:3001/api/yemek/yemeks"),
+                          headers: {
+                            "x-access-token": data["token"],
+                          });
+                      var dataa = jsonDecode(responsee.body);
+                      Provider.of<MealListProvider>(context, listen: false)
+                          .setMeals(dataa);
                       Navigator.of(context)
                           .popAndPushNamed(HomeScreen.routeName);
                     }

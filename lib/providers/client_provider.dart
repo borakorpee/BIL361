@@ -10,4 +10,12 @@ class ClientProvider extends ChangeNotifier {
   void setClient(dynamic client) {
     _client = ClientModel.fromJson(client);
   }
+
+  void updateBalance(int? price) {
+    int bakiye = int.parse(_client.client?.bakiye as String);
+    var new_total = bakiye + price!.toInt();
+
+    _client.client!.bakiye = new_total.toString();
+    notifyListeners();
+  }
 }

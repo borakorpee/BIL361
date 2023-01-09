@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/appHeader.dart';
 import '../../components/customDrawer.dart';
+import '../../providers/meal_list_provider.dart';
 
 class ReservationScree extends StatelessWidget {
   static const routeName = "/reservation";
@@ -10,6 +12,8 @@ class ReservationScree extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider =
+        Provider.of<MealListProvider>(context, listen: false).meal_list;
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
@@ -59,12 +63,13 @@ class ReservationScree extends StatelessWidget {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: DataTable(
+                dataRowHeight: 100,
                 dataRowColor:
                     MaterialStateColor.resolveWith((states) => Colors.white),
                 headingRowColor:
                     MaterialStateColor.resolveWith((states) => Colors.white),
                 showBottomBorder: true,
-                columnSpacing: 15.r,
+                columnSpacing: 35.r,
                 headingTextStyle: TextStyle(
                   fontSize: 14.sp,
                   color: Colors.black,
@@ -92,29 +97,43 @@ class ReservationScree extends StatelessWidget {
                     label: Text("Fiyat"),
                   ),
                 ],
-                rows: [
-                  DataRow(
-                    selected: false,
-                    onSelectChanged: (b) {},
-                    cells: const [
-                      DataCell(
-                        Text("asd"),
-                      ),
-                      DataCell(
-                        Text("asd"),
-                      ),
-                      DataCell(
-                        Text("asd"),
-                      ),
-                      DataCell(
-                        Text("asd"),
-                      ),
-                      DataCell(
-                        Text("asd"),
-                      ),
-                    ],
-                  ),
-                ],
+                rows: provider!
+                    .map(
+                      (meal) => DataRow(
+                          selected: false,
+                          onSelectChanged: (value) {},
+                          cells: [
+                            DataCell(
+                              Text(meal.date.toString()),
+                            ),
+                            DataCell(
+                              Text(meal.yemekhane.toString()),
+                            ),
+                            DataCell(
+                              Container(
+                                width: 50,
+                                height: 100,
+                                child: ListView.builder(
+                                  itemCount: meal.men!.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Text(
+                                      meal.men![index],
+                                      style: TextStyle(fontSize: 12.sp),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                            DataCell(
+                              Text(meal.ogun.toString()),
+                            ),
+                            DataCell(
+                              Text(meal.fiyat.toString()),
+                            ),
+                          ]),
+                    )
+                    .toList(),
               ),
             ),
           ],

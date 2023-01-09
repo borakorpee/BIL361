@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:yga/providers/client_provider.dart';
+import 'package:yga/providers/meal_list_provider.dart';
 import 'package:yga/screens/cart/cart_page.dart';
 import 'package:yga/screens/deposit/deposit_page.dart';
 import 'package:yga/screens/home/home_page.dart';
@@ -19,6 +20,9 @@ void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => ClientProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => MealListProvider(),
     ),
   ], child: const MyApp()));
 }

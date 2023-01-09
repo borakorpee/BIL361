@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:yga/providers/meal_list_provider.dart';
 import '../../components/appHeader.dart';
 import '../../components/customDrawer.dart';
 
@@ -100,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
