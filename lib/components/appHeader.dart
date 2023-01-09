@@ -37,13 +37,44 @@ class _HeaderState extends State<Header> {
                   ),
                 ],
               ),
-              SizedBox(width: 25.w),
-              const Icon(
-                Icons.shopping_cart,
-                color: Colors.white,
-                size: 18,
+              SizedBox(width: 10.w),
+              SizedBox(
+                width: 44.w,
+                height: 50.h,
+                child: Stack(
+                  children: [
+                    const Center(
+                      child: Icon(
+                        Icons.shopping_cart,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                    Positioned(
+                      top: 8.h,
+                      right: 6.r,
+                      child: Container(
+                        width: 15.w,
+                        height: 15.w,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.green,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "7",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(width: 25.w),
+              SizedBox(width: 10.w),
               SizedBox(
                 width: 25.w,
                 height: 25.w,
