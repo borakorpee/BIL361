@@ -165,7 +165,8 @@ class CustomDrawer extends StatelessWidget {
             ),
             ListTile(
               onTap: () {
-                Navigator.of(context).popAndPushNamed(LoginScreen.routeName);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    LoginScreen.routeName, (Route<dynamic> route) => false);
               },
               leading: const Icon(
                 Icons.close,

@@ -10,12 +10,13 @@ class ClientModel {
       required this.token,
       required this.client});
 
-  ClientModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    message = json['message'];
-    token = json['token'];
-    client =
-        json['client'] != null ? new Client.fromJson(json['client']) : null;
+  factory ClientModel.fromJson(Map<String, dynamic> json) {
+    return ClientModel(
+      status: json['status'],
+      message: json['message'],
+      token: json['token'],
+      client: Client.fromJson(json['client']),
+    );
   }
 
   Map<String, dynamic> toJson() {

@@ -157,74 +157,159 @@ class _CartScreenState extends State<CartScreen> {
                   .toList(),
             ),
           ),
-          Container(
-            width: 384.w,
-            height: 170.h,
-            color: Colors.white,
+          SizedBox(height: 10.h),
+          SingleChildScrollView(
             child: Column(
               children: [
-                Text(
-                  "Sipariş Tarihi: ${formattedDate}",
-                ),
                 Container(
-                  width: 354.w,
-                  height: 113.h,
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Colors.grey)),
+                  width: 384.w,
+                  height: 170.h,
+                  color: Colors.white,
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
+                      Row(
+                        children: [
+                          SizedBox(width: 15.w),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Sipariş Tarihi: ${formattedDate}",
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10.h),
+                      Container(
+                        width: 354.w,
+                        height: 113.h,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey)),
+                        child: Column(
                           children: [
-                            SizedBox(
-                              width: 231.w,
-                              child: const Text(
-                                "Mevcut Bakiye:",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 231.w,
+                                    child: const Text(
+                                      "Mevcut Bakiye:",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Text("${client!.bakiye.toString()} TL"),
+                                ],
                               ),
                             ),
-                            Text("${client!.bakiye.toString()} TL"),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 231.w,
-                              child: const Text(
-                                "Harcanan:",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 231.w,
+                                    child: const Text(
+                                      "Harcanan:",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Text("${cart.cartList!.length * 7.5} TL"),
+                                ],
                               ),
                             ),
-                            Text("${cart.cartList!.length * 7.5} TL"),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 231.w,
-                              child: const Text(
-                                "Kalan:",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 231.w,
+                                    child: const Text(
+                                      "Kalan:",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Text(
+                                      "${(int.parse(client.bakiye as String) - cart.cartList!.length * 7.5)} TL"),
+                                ],
                               ),
                             ),
-                            Text(
-                                "${(int.parse(client.bakiye as String) - cart.cartList!.length * 7.5)} TL"),
                           ],
                         ),
-                      ),
+                      )
                     ],
                   ),
-                )
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: (() {
+                        cart.clearCart();
+                      }),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          color: const Color(0xff3c8dbc),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                                  vertical: 7, horizontal: 13)
+                              .r,
+                          child: FittedBox(
+                            child: Row(
+                              children: const [
+                                Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  " Sepeti Boşalt",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 3.w),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(3),
+                        color: const Color(0xff00a65a),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                                vertical: 7, horizontal: 13)
+                            .r,
+                        child: FittedBox(
+                          child: Row(
+                            children: const [
+                              Icon(
+                                Icons.check,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                " Bakiye ile Ödeme Yap",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 20.w),
+                  ],
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:yga/screens/login/constant.dart';
 import '../../components/appHeader.dart';
 import '../../components/customDrawer.dart';
 import '../../providers/client_provider.dart';
@@ -121,8 +124,19 @@ class _DepositScreenState extends State<DepositScreen> {
             ),
             SizedBox(height: 20.h),
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 provider.updateBalance(int.tryParse(depositController.text));
+                var response = await http.put(
+                    Uri.parse(
+                        "$root/client/update/${provider.get_client!.sId}"),
+                    body: {
+                      "bakiye": provider.get_client!.bakiye,
+                    },
+                    headers: {
+                      "x-access-token": provider.get_token,
+                    });
+
+                log(response.body);
               },
               child: Container(
                 width: 80.w,

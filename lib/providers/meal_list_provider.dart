@@ -8,6 +8,11 @@ class MealListProvider with ChangeNotifier {
 
   List<Yemeks>? cartList = [];
 
+  void clearCart() {
+    cartList = [];
+    notifyListeners();
+  }
+
   void addToCart(Yemeks meal) {
     cartList!.add(meal);
     notifyListeners();

@@ -20,17 +20,19 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(211, 214, 221, 1),
-      body: SafeArea(
-        child: SizedBox(
-          width: 414.w,
-          height: 896.h,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Content(),
-              SizedBox(height: 30.h),
-              const InputFields(),
-            ],
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: SizedBox(
+            width: 414.w,
+            height: 896.h,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Content(),
+                SizedBox(height: 30.h),
+                const InputFields(),
+              ],
+            ),
           ),
         ),
       ),

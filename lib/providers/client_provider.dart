@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:yga/models/client_model.dart';
 
 class ClientProvider extends ChangeNotifier {
-  ClientModel _client =
-      ClientModel(client: null, message: '', status: null, token: '');
+  ClientModel _client = ClientModel(
+    client: null,
+    message: '',
+    status: null,
+    token: '',
+  );
 
+  String get get_token => _client.token as String;
   Client? get get_client => _client.client;
 
   void setClient(dynamic client) {
