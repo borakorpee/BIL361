@@ -7,6 +7,7 @@ class MealListProvider with ChangeNotifier {
   List<Yemeks>? get meal_list => _meals.value!.yemeks;
 
   List<Yemeks>? cartList = [];
+  List<Yemeks>? ownedMeals = [];
 
   void clearCart() {
     cartList = [];
@@ -20,6 +21,11 @@ class MealListProvider with ChangeNotifier {
 
   void removeFromCart(Yemeks meal) {
     cartList!.remove(meal);
+    notifyListeners();
+  }
+
+  void removeFromOwned(Yemeks meal) {
+    ownedMeals!.remove(meal);
     notifyListeners();
   }
 

@@ -1,14 +1,18 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import 'package:yga/models/client_model.dart';
+import 'package:http/http.dart' as http;
 
 import '../../components/appHeader.dart';
 import '../../components/customDrawer.dart';
 import '../../providers/client_provider.dart';
 import '../../providers/meal_list_provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
+
+import '../login/constant.dart';
 
 class CartScreen extends StatefulWidget {
   static const routeName = "/cart";
@@ -28,6 +32,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final client = Provider.of<ClientProvider>(context).get_client;
+    final clientt = Provider.of<ClientProvider>(context);
 
     final cart = Provider.of<MealListProvider>(context);
     DateTime now = DateTime.now();
@@ -214,7 +219,7 @@ class _CartScreenState extends State<CartScreen> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  Text("${cart.cartList!.length * 7.5} TL"),
+                                  Text("${cart.cartList!.length * 7} TL"),
                                 ],
                               ),
                             ),
@@ -231,7 +236,7 @@ class _CartScreenState extends State<CartScreen> {
                                     ),
                                   ),
                                   Text(
-                                      "${(int.parse(client.bakiye as String) - cart.cartList!.length * 7.5)} TL"),
+                                      "${(int.parse(client.bakiye as String) - cart.cartList!.length * 7)} TL"),
                                 ],
                               ),
                             ),
@@ -277,29 +282,54 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                     ),
                     SizedBox(width: 3.w),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(3),
-                        color: const Color(0xff00a65a),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                                vertical: 7, horizontal: 13)
-                            .r,
-                        child: FittedBox(
-                          child: Row(
-                            children: const [
-                              Icon(
-                                Icons.check,
-                                color: Colors.white,
-                              ),
-                              Text(
-                                " Bakiye ile Ödeme Yap",
-                                style: TextStyle(
+                    GestureDetector(
+                      onTap: () async {
+                        if (int.parse(client.bakiye as String) >
+                            cart.cartList!.length * 7) {
+                          clientt.proceedCheckOut(
+                            (int.parse(client.bakiye as String) -
+                                cart.cartList!.length * 7),
+                          );
+                          var response = await http.put(
+                              Uri.parse("$root/client/update/${client.sId}"),
+                              body: {
+                                "bakiye": client.bakiye,
+                              },
+                              headers: {
+                                "x-access-token": clientt.get_token,
+                              });
+
+                          cart.ownedMeals = cart.cartList;
+                          cart.clearCart();
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Yetersiz Bakiye")));
+                        }
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          color: const Color(0xff00a65a),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                                  vertical: 7, horizontal: 13)
+                              .r,
+                          child: FittedBox(
+                            child: Row(
+                              children: const [
+                                Icon(
+                                  Icons.check,
                                   color: Colors.white,
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  " Bakiye ile Ödeme Yap",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

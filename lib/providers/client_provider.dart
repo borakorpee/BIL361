@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:yga/models/client_model.dart';
+import 'meal_list_provider.dart';
 
 class ClientProvider extends ChangeNotifier {
   ClientModel _client = ClientModel(
@@ -12,6 +15,8 @@ class ClientProvider extends ChangeNotifier {
   String get get_token => _client.token as String;
   Client? get get_client => _client.client;
 
+  get root => null;
+
   void setClient(dynamic client) {
     _client = ClientModel.fromJson(client);
   }
@@ -21,6 +26,12 @@ class ClientProvider extends ChangeNotifier {
     var new_total = bakiye + price!.toInt();
 
     _client.client!.bakiye = new_total.toString();
+    notifyListeners();
+  }
+
+  Future<void> proceedCheckOut(int? price) async {
+    _client.client!.bakiye = price.toString();
+
     notifyListeners();
   }
 }
