@@ -9,7 +9,6 @@ import 'package:yga/screens/deposit/deposit_page.dart';
 import 'package:yga/screens/home/home_page.dart';
 import 'package:yga/screens/reservation/cancelRez_page.dart';
 import 'package:yga/screens/reservation/reservation_page.dart';
-
 import 'screens/login/login_page.dart';
 
 void main() {

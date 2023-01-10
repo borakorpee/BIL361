@@ -13,7 +13,7 @@ class MealListProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeMeal(Yemeks meal) {
+  void removeFromCart(Yemeks meal) {
     cartList!.remove(meal);
     notifyListeners();
   }

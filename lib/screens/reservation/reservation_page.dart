@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:yga/screens/cart/cart_page.dart';
 
 import '../../components/appHeader.dart';
 import '../../components/customDrawer.dart';
@@ -50,7 +51,7 @@ class ReservationScree extends StatelessWidget {
           children: [
             const Header(),
             Container(
-              width: 384.w,
+              width: double.infinity,
               color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.only(left: 10).r,
@@ -101,51 +102,91 @@ class ReservationScree extends StatelessWidget {
                 rows: provider!
                     .map(
                       (meal) => DataRow(
-                          selected: cart.cartList!.contains(meal),
-                          onSelectChanged: (value) {
-                            if (value!) {
-                              cart.addToCart(meal);
-                            } else {
-                              cart.removeMeal(meal);
-                            }
-                          },
-                          cells: [
-                            DataCell(
-                              Text(meal.date.toString()),
-                            ),
-                            DataCell(
-                              Text(meal.yemekhane.toString()),
-                            ),
-                            DataCell(
-                              SizedBox(
-                                width: 100.w,
-                                height: 100.h,
-                                child: ListView.builder(
-                                  itemCount: meal.men!.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(top: 5).r,
-                                      child: Text(
-                                        meal.men![index],
-                                        style: TextStyle(fontSize: 12.sp),
-                                      ),
-                                    );
-                                  },
+                        selected: cart.cartList!.contains(meal),
+                        onSelectChanged: (value) {
+                          if (value!) {
+                            cart.addToCart(meal);
+                          } else {
+                            cart.removeFromCart(meal);
+                          }
+                        },
+                        cells: [
+                          DataCell(
+                            Row(
+                              children: [
+                                Container(
+                                  width: 32.w,
+                                  height: 32.w,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                          "https://yks.bakircay.edu.tr/img/ogun/O.png"),
+                                    ),
+                                  ),
                                 ),
+                                Text(meal.date.toString()),
+                              ],
+                            ),
+                          ),
+                          DataCell(
+                            Text(meal.yemekhane.toString()),
+                          ),
+                          DataCell(
+                            SizedBox(
+                              width: 100.w,
+                              height: 100.h,
+                              child: ListView.builder(
+                                itemCount: meal.men!.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(top: 5).r,
+                                    child: Text(
+                                      meal.men![index],
+                                      style: TextStyle(fontSize: 12.sp),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
-                            DataCell(
-                              Text(meal.ogun.toString()),
-                            ),
-                            DataCell(
-                              Text(meal.fiyat.toString()),
-                            ),
-                          ]),
+                          ),
+                          DataCell(
+                            Text(meal.ogun.toString()),
+                          ),
+                          DataCell(
+                            Text("${meal.fiyat} TL"),
+                          ),
+                        ],
+                      ),
                     )
                     .toList(),
               ),
             ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 15).r,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(CartScreen.routeName);
+                  },
+                  child: Container(
+                    width: 177.w,
+                    height: 50.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3),
+                      color: const Color(0xff3c8dbc),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "İleri",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
