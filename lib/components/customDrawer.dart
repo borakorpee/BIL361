@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:yga/providers/client_provider.dart';
 import 'package:yga/screens/cart/cart_page.dart';
+import 'package:yga/screens/history/history_page.dart';
 import 'package:yga/screens/reservation/cancelRez_page.dart';
 import 'package:yga/screens/reservation/reservation_page.dart';
 
@@ -160,6 +161,20 @@ class CustomDrawer extends StatelessWidget {
               ),
               title: const Text(
                 "Sepetim",
+                style: TextStyle(color: Color(0xffb8c7ce)),
+              ),
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    QrHistory.routeName, (Route<dynamic> route) => false);
+              },
+              leading: const Icon(
+                Icons.directions_walk_outlined,
+                color: Color(0xffb8c7ce),
+              ),
+              title: const Text(
+                "Hareketlerim",
                 style: TextStyle(color: Color(0xffb8c7ce)),
               ),
             ),

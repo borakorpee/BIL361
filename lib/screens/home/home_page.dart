@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:yga/models/client_model.dart';
 import 'package:yga/models/qr_singleton.dart';
 import 'package:yga/providers/meal_list_provider.dart';
+import 'package:yga/providers/qr_provider.dart';
 import '../../components/appHeader.dart';
 import '../../components/customDrawer.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -26,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    initializeDateFormatting();
 
     qr = QrSingleton.getInstance();
   }
@@ -33,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final client = Provider.of<ClientProvider>(context, listen: false);
-
+    final qr_provider = Provider.of<QrProvider>(context);
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
@@ -173,6 +177,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             child: qr.schoolQR(client.get_client),
                           ),
+                          TextButton(
+                            onPressed: (() {
+                              DateTime now = DateTime.now();
+                              String formattedDate =
+                                  DateFormat('dd MMMM EEEE , h:mm:ss ', "tr")
+                                      .format(now);
+                              qr_provider.okul_kayit(formattedDate);
+                            }),
+                            child: const Text("Okut"),
+                          )
                         ],
                       )
                     : const SizedBox(),
@@ -186,6 +200,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             child: qr.cafeteriaQR(client.get_client),
                           ),
+                          TextButton(
+                            onPressed: (() {
+                              DateTime now = DateTime.now();
+                              String formattedDate =
+                                  DateFormat('dd MMMM EEEE , h:mm:ss ', "tr")
+                                      .format(now);
+                              qr_provider.yemekhane_kayit(formattedDate);
+                            }),
+                            child: const Text("Okut"),
+                          )
                         ],
                       )
                     : const SizedBox(),

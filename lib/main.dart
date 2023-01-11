@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:yga/providers/client_provider.dart';
 import 'package:yga/providers/meal_list_provider.dart';
+import 'package:yga/providers/qr_provider.dart';
 import 'package:yga/screens/cart/cart_page.dart';
 import 'package:yga/screens/deposit/deposit_page.dart';
+import 'package:yga/screens/history/history_page.dart';
 import 'package:yga/screens/home/home_page.dart';
 import 'package:yga/screens/reservation/cancelRez_page.dart';
 import 'package:yga/screens/reservation/reservation_page.dart';
@@ -22,6 +24,9 @@ void main() {
     ),
     ChangeNotifierProvider(
       create: (context) => MealListProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => QrProvider(),
     ),
   ], child: const MyApp()));
 }
@@ -48,6 +53,7 @@ class MyApp extends StatelessWidget {
             CancelRezervationScreen.routeName: (context) =>
                 const CancelRezervationScreen(),
             CartScreen.routeName: (context) => const CartScreen(),
+            QrHistory.routeName: (context) => const QrHistory(),
           },
         );
       },
