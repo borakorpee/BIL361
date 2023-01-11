@@ -8,9 +8,21 @@ class MealListProvider with ChangeNotifier {
 
   List<Yemeks>? cartList = [];
   List<Yemeks>? ownedMeals = [];
-
+  List<Yemeks>? purchasable = [];
   void clearCart() {
     cartList = [];
+    notifyListeners();
+  }
+
+  void setas() {
+    _meals.value!.yemeks =
+        meal_list!.toSet().difference(ownedMeals!.toSet()).toList();
+
+    print(meal_list);
+  }
+
+  void addMeal(Yemeks meal) {
+    _meals.value!.yemeks!.add(meal);
     notifyListeners();
   }
 

@@ -3,10 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
+import 'package:http/http.dart' as http;
 import '../../components/appHeader.dart';
 import '../../components/customDrawer.dart';
+import '../../providers/client_provider.dart';
 import '../../providers/meal_list_provider.dart';
+import '../login/constant.dart';
 
 class CancelRezervationScreen extends StatelessWidget {
   static const routeName = "/cancel-rez";
@@ -15,6 +17,7 @@ class CancelRezervationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<MealListProvider>(context);
+    final client = Provider.of<ClientProvider>(context);
 
     return Scaffold(
       drawer: const CustomDrawer(),
@@ -114,8 +117,19 @@ class CancelRezervationScreen extends StatelessWidget {
                         Text("${meal.fiyat} TL"),
                       ),
                       DataCell(GestureDetector(
-                        onTap: () {
-                          cart.removeFromCart(meal);
+                        onTap: () async {
+                          cart.removeFromOwned(meal);
+                          cart.addMeal(meal);
+                          client.updateBalance(7);
+                          var response = await http.put(
+                              Uri.parse(
+                                  "$root/client/update/${client.get_client!.sId}"),
+                              body: {
+                                "bakiye": client.get_client!.bakiye,
+                              },
+                              headers: {
+                                "x-access-token": client.get_token,
+                              });
                         },
                         child: const Icon(
                           Icons.delete,

@@ -298,8 +298,12 @@ class _CartScreenState extends State<CartScreen> {
                               headers: {
                                 "x-access-token": clientt.get_token,
                               });
-
-                          cart.ownedMeals = cart.cartList;
+                          for (var meal in cart.cartList!) {
+                            if (!cart.ownedMeals!.contains(meal)) {
+                              cart.ownedMeals!.add(meal);
+                            }
+                          }
+                          cart.setas();
                           cart.clearCart();
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(

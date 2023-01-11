@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:yga/models/client_model.dart';
-import 'meal_list_provider.dart';
 
 class ClientProvider extends ChangeNotifier {
   ClientModel _client = ClientModel(
