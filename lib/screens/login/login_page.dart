@@ -166,6 +166,7 @@ class _InputFieldsState extends State<InputFields> {
                         "pass": password_controller.text,
                       },
                     );
+                    log(response.body);
                     var data = jsonDecode(response.body);
                     if (data["status"]) {
                       Provider.of<ClientProvider>(context, listen: false)

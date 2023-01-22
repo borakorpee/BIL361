@@ -55,14 +55,15 @@ class Yemeks {
   int? iV;
   String? ogun;
 
-  Yemeks(
-      {this.sId,
-      this.date,
-      this.fiyat,
-      this.yemekhane,
-      this.men,
-      this.iV,
-      this.ogun});
+  Yemeks({
+    this.sId,
+    this.date,
+    this.fiyat,
+    this.yemekhane,
+    this.men,
+    this.iV,
+    this.ogun,
+  });
 
   Yemeks.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
