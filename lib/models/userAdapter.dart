@@ -1,4 +1,6 @@
-import 'package:yga/models/bakiye_model.dart';
+import 'package:yga/models/userModel.dart';
+
+import 'bakiye_model.dart';
 
 class UserAdapter {
   User getUser(Map<String, dynamic> json) {
@@ -18,24 +20,4 @@ class UserAdapter {
       sId: sId,
     );
   }
-}
-
-UserAdapter _adapter = UserAdapter();
-//User user = _adapter.getUser(response.body); //response.body == json
-
-class User {
-  String? sId;
-  String? name;
-  String? surName;
-  String? pass;
-  String? no;
-  Bakiye? bakiye;
-  User({
-    required this.sId,
-    required this.name,
-    required this.surName,
-    required this.pass,
-    required this.no,
-    required this.bakiye,
-  });
 }

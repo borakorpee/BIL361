@@ -1,5 +1,5 @@
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:yga/models/client_model.dart';
+import 'package:yga/models/userModel.dart';
 
 class QrSingleton {
   static QrSingleton? _instance;
@@ -11,19 +11,18 @@ class QrSingleton {
     return _instance!;
   }
 
-  QrImage schoolQR(Client? client) {
+  QrImage schoolQR(User? user) {
     return QrImage(
-      data:
-          "${client!.sId} ${client.name} ${client.surName} ${DateTime.now()} okul ",
+      data: "${user!.sId} ${user.name} ${user.surName} ${DateTime.now()} okul ",
       version: QrVersions.auto,
       size: 200.0,
     );
   }
 
-  QrImage cafeteriaQR(Client? client) {
+  QrImage cafeteriaQR(User? user) {
     return QrImage(
       data:
-          "${client!.sId} ${client.name} ${client.surName} ${DateTime.now()} yemekhane",
+          "${user!.sId} ${user.name} ${user.surName} ${DateTime.now()} yemekhane",
       version: QrVersions.auto,
       size: 200.0,
     );
